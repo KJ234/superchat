@@ -1,60 +1,58 @@
 import React, {useState} from 'react'
+import { useNavigate } from "react-router-dom";
+
 
 
 function Loginform() {
 
-    const [userInput, setUserInput] = useState('');
+    const Navigate = useNavigate()
 
-    const [passwordInput, setPasswordInput] = useState('');
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
 
 
     const handleUsernameSubmit = (e) => {
-        setUserInput(e.target.value)
+        setUsername(e.target.value)
     }
 
     const handlePasswordnameSubmit = (e) => {
-        setPasswordInput(e.target.value);
+        setPassword(e.target.value)
     }
  
     const handleFormSubmit = (e) => {
-        e.preventdefault()
-        let hardcodedCred = {
-            user: 'Komal',
+        e.preventDefault()
+        login()
+    }
+
+    function login() {
+        const hardcodedCred = {
+            username: 'Komal',
             password: 'password123'
         }
 
-        if ((userInput == hardcodedCred.user) && (passwordInput == hardcodedCred.password)) {
-            alert('correct')
+        if (username === hardcodedCred.username && password === hardcodedCred.password) {
+            console.log('correct')
+            Navigate('/homepage')
         }else {
-            alert('incorrect')
+            console.log('incorrect')
         }
     }
 
-    
-
   return (
     <div className='container'>
-
-    <form  className='box' onSubmit={handleFormSubmit}>
+    <div className='box'>
     <h1>Login</h1>
-        <input 
-        type='user' 
-        placeholder='Enter Username' 
-        value={userInput}  
-        onChange={handleUsernameSubmit} 
-        />
-        <input 
-        type='password'
-        placeholder='Enter Password' 
-        value={passwordInput} 
-        onChange={handlePasswordnameSubmit}
-        />
-        <button 
-        type='submit'
-        id='button' >Submit</button>
-    </form>
+    <form onSubmit={handleFormSubmit}>
+        <label htmlFor='username'>Username: </label>
+        <input type='text' placeholder='Enter Username' value={username}  onChange={handleUsernameSubmit} ></input>
+        <label htmlFor='Password'>Password: </label>
+        <input type='password'placeholder='Enter Password' value={password} onChange={handlePasswordnameSubmit}></input>
+        <button id='button' type='sumbit'>Submit</button>
+   </form>
 </div>
+
+    </div>
   )
 }
 
